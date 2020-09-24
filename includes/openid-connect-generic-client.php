@@ -2,10 +2,10 @@
 /**
  * Plugin OIDC/oAuth client class.
  *
- * @package   OpenID_Connect_Generic
+ * @package   Bloksec_OIDC
  * @category  Authentication
  * @author    Jonathan Daggerhart <jonathan@daggerhart.com>
- * @copyright 2015-2020 daggerhart
+ * @copyright 2015-2020 Bloksec
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt GPL-2.0+
  */
 
@@ -14,7 +14,7 @@
  *
  * Plugin OIDC/oAuth client class.
  *
- * @package  OpenID_Connect_Generic
+ * @package  Bloksec_OIDC
  * @category Authentication
  */
 class OpenID_Connect_Generic_Client {

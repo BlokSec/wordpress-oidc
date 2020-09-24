@@ -2,10 +2,10 @@
 /**
  * Login form and login button handlong class.
  *
- * @package   OpenID_Connect_Generic
+ * @package   Bloksec_OIDC
  * @category  Login
  * @author    Jonathan Daggerhart <jonathan@daggerhart.com>
- * @copyright 2015-2020 daggerhart
+ * @copyright 2015-2020 Bloksec
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt GPL-2.0+
  */
 
@@ -14,7 +14,7 @@
  *
  * Login form and login button handlong.
  *
- * @package OpenID_Connect_Generic
+ * @package Bloksec_OIDC
  * @category  Login
  */
 class OpenID_Connect_Generic_Login_Form {
@@ -137,6 +137,8 @@ class OpenID_Connect_Generic_Login_Form {
 		// Login button is appended to existing messages in case of error.
 		$message .= $this->make_login_button();
 
+		$message .= $this->make_register_button();
+
 		return $message;
 	}
 
@@ -170,6 +172,32 @@ class OpenID_Connect_Generic_Login_Form {
 	 */
 	function make_login_button( $atts = array() ) {
 		$button_text = __( 'Login with Bloksec', 'bloksec-oidc' );
+		if ( ! empty( $atts['button_text'] ) ) {
+			$button_text = $atts['button_text'];
+		}
+
+		$text = apply_filters( 'openid-connect-generic-login-button-text', $button_text );
+		$href = $this->client_wrapper->get_authentication_url( $atts );
+
+		ob_start();
+		?>
+		<div class="openid-connect-login-button" style="margin: 1em 0; text-align: center;">
+			<a class="button button-large" href="<?php print esc_url( $href ); ?>"><?php print $text; ?></a>
+		</div>
+		<?php
+		return ob_get_clean();
+	}
+
+	/**
+	 * Create a register button (link).
+	 *
+	 * @param array $atts Array of optional attributes to override login buton
+	 * functionality when used by shortcode.
+	 *
+	 * @return string
+	 */
+	function make_register_button( $atts = array() ) {
+		$button_text = __( 'Register with Bloksec', 'bloksec-oidc' );
 		if ( ! empty( $atts['button_text'] ) ) {
 			$button_text = $atts['button_text'];
 		}

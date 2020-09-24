@@ -3,7 +3,7 @@
  * Plugin Name: MailHog PhpMailer Setup
  * Description: Establishes a connection between the PhpMailer library and the MailHog local-dev Docker container.
  *
- * @package OpenID_Connect_Generic_MuPlugins
+ * @package Bloksec_OIDC
  */
 
 // If this file is called directly, abort.

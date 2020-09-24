@@ -2,10 +2,10 @@
 /**
  * Plugin Admin settings page class.
  *
- * @package   OpenID_Connect_Generic
+ * @package   Bloksec_OIDC
  * @category  Settings
  * @author    Jonathan Daggerhart <jonathan@daggerhart.com>
- * @copyright 2015-2020 daggerhart
+ * @copyright 2015-2020 Bloksec
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt GPL-2.0+
  */
 
@@ -14,7 +14,7 @@
  *
  * Admin settings page.
  *
- * @package OpenID_Connect_Generic
+ * @package Bloksec_OIDC
  * @category  Settings
  */
 class OpenID_Connect_Generic_Settings_Page {

@@ -5,12 +5,12 @@
  * This plugin provides the ability to authenticate users with Identity
  * Providers using the OpenID Connect OAuth2 API with Authorization Code Flow.
  *
- * @package   OpenID_Connect_Generic
+ * @package   Bloksec_OIDC
  * @category  General
- * @author    Jonathan Daggerhart <jonathan@daggerhart.com>
- * @copyright 2015-2020 daggerhart
+ * @author    Kevin Wicken <kwicken@bloksec.com>
+ * @copyright 2015-2020 Bloksec
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt GPL-2.0+
- * @link      https://github.com/daggerhart
+ * @link      https://github.com/wicken
  *
  * @wordpress-plugin
  * Plugin Name:       Bloksec OpenID Connect
@@ -69,7 +69,7 @@ Notes
  *
  * Defines plugin initialization functionality.
  *
- * @package OpenID_Connect_Generic
+ * @package Bloksec_OIDC
  * @category  General
  */
 class OpenID_Connect_Generic {
