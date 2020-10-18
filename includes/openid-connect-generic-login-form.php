@@ -110,9 +110,9 @@ class OpenID_Connect_Generic_Login_Form {
 				// If using the login form, default redirect to the admin dashboard.
 				$redirect_url = admin_url();
 
-				if ( isset( $_REQUEST['redirect_to'] ) ) {
-					$redirect_url = esc_url_raw( $_REQUEST['redirect_to'] );
-				}
+				// if ( isset( $_REQUEST['redirect_to'] ) ) {
+				// 	$redirect_url = esc_url_raw( $_REQUEST['redirect_to'] );
+				// }
 			}
 
 			$redirect_url = apply_filters( 'openid-connect-generic-cookie-redirect-url', $redirect_url );
@@ -135,9 +135,9 @@ class OpenID_Connect_Generic_Login_Form {
 		}
 
 		// Login button is appended to existing messages in case of error.
-		$message .= $this->make_login_button();
+		// $message .= $this->make_test_button();
 
-		$message .= $this->make_register_button();
+		$message .= $this->make_login_button();
 
 		return $message;
 	}
@@ -188,31 +188,6 @@ class OpenID_Connect_Generic_Login_Form {
 		return ob_get_clean();
 	}
 
-	/**
-	 * Create a register button (link).
-	 *
-	 * @param array $atts Array of optional attributes to override login buton
-	 * functionality when used by shortcode.
-	 *
-	 * @return string
-	 */
-	function make_register_button( $atts = array() ) {
-		$button_text = __( 'Register with Bloksec', 'bloksec-oidc' );
-		if ( ! empty( $atts['button_text'] ) ) {
-			$button_text = $atts['button_text'];
-		}
-
-		$text = apply_filters( 'openid-connect-generic-login-button-text', $button_text );
-		$href = $this->client_wrapper->get_authentication_url( $atts );
-
-		ob_start();
-		?>
-		<div class="openid-connect-login-button" style="margin: 1em 0; text-align: center;">
-			<a class="button button-large" href="<?php print esc_url( $href ); ?>"><?php print $text; ?></a>
-		</div>
-		<?php
-		return ob_get_clean();
-	}
 
 	/**
 	 * Removes the login form from the HTML DOM

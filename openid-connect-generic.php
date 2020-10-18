@@ -188,6 +188,16 @@ class OpenID_Connect_Generic {
 	}
 
 	/**
+	 * Check if privacy enforcement is enabled, and redirect users that aren't
+	 * logged in.
+	 *
+	 * @return void
+	 */
+	function login_redirect() {
+		return '/';
+	}
+
+	/**
 	 * Enforce privacy settings for rss feeds.
 	 *
 	 * @param string $content The content.
@@ -331,7 +341,7 @@ class OpenID_Connect_Generic {
 				'endpoint_login'       => defined( 'OIDC_ENDPOINT_LOGIN_URL' ) ? OIDC_ENDPOINT_LOGIN_URL : 'https://api.bloksec.io/oidc/auth',
 				'endpoint_userinfo'    => defined( 'OIDC_ENDPOINT_USERINFO_URL' ) ? OIDC_ENDPOINT_USERINFO_URL : 'https://api.bloksec.io/oidc/me',
 				'endpoint_token'       => defined( 'OIDC_ENDPOINT_TOKEN_URL' ) ? OIDC_ENDPOINT_TOKEN_URL : 'https://api.bloksec.io/oidc/token',
-				'endpoint_end_session' => defined( 'OIDC_ENDPOINT_LOGOUT_URL' ) ? OIDC_ENDPOINT_LOGOUT_URL : 'https://api.bloksec.io/oidc/token/revocation',
+				'endpoint_end_session' => defined( 'OIDC_ENDPOINT_LOGOUT_URL' ) ? OIDC_ENDPOINT_LOGOUT_URL : 'https://api.bloksec.io/oidc/session/end',
 
 				// Non-standard settings.
 				'no_sslverify'    => 0,
@@ -346,7 +356,7 @@ class OpenID_Connect_Generic {
 				'enforce_privacy' => 0,
 				'alternate_redirect_uri' => 0,
 				'token_refresh_enable' => 1,
-				'link_existing_users' => 0,
+				'link_existing_users' => 1,
 				'create_if_does_not_exist' => 1,
 				'redirect_user_back' => 0,
 				'redirect_on_logout' => 1,
@@ -360,13 +370,167 @@ class OpenID_Connect_Generic {
 		$plugin = new self( $settings, $logger );
 
 		add_action( 'init', array( $plugin, 'init' ) );
-
+		add_action( 'wp_ajax_register_for_bloksec', array( $plugin, 'register_for_bloksec' ) );
+		add_action( 'wp_ajax_ignore_bloksec_question', array( $plugin, 'ignore_bloksec_question' ) );
+		add_action('wp_footer', array( $plugin, 'login_question' ));
 		// Privacy hooks.
 		add_action( 'template_redirect', array( $plugin, 'enforce_privacy_redirect' ), 0 );
+		add_action( 'login_redirect', array( $plugin, 'login_redirect' ), 0 );
 		add_filter( 'the_content_feed', array( $plugin, 'enforce_privacy_feeds' ), 999 );
 		add_filter( 'the_excerpt_rss', array( $plugin, 'enforce_privacy_feeds' ), 999 );
 		add_filter( 'comment_text_rss', array( $plugin, 'enforce_privacy_feeds' ), 999 );
 	}
+
+	function register_for_bloksec(){
+		$user = wp_get_current_user();
+		if($user){
+			$username = $user->user_login;
+			$email = $user->user_email;
+			$firstName = $user->first_name;
+			$lastName = $user->last_name;
+			$userBody = array(
+				'name' => $firstName . ' ' . $lastName,
+				'email' => $email
+			);
+			$accountBody = array(
+				'name' => $email,
+				'appId' => $this->settings->client_id
+			);
+			$body = array(
+				'auth_token' => $this->settings->client_secret,
+				'user' => $userBody,
+				'account' => $accountBody
+			);
+			wp_remote_request ('https://api.bloksec.io/registration', array(
+				'headers'     => array('Content-Type' => 'application/json; charset=utf-8'),
+				'body'        => json_encode($body),
+				'method'      => 'POST',
+				'data_format' => 'body'
+			));
+		}
+		add_user_meta( $user->ID, '_bloksec_question_asked', 1, true );
+
+	}
+
+	function ignore_bloksec_question(){
+		$user = wp_get_current_user();
+		add_user_meta( $user->ID, '_bloksec_question_asked', 1, true );
+	}
+
+
+	/**
+	 * Loads pop-up on first login.
+	 */
+	function login_question() {
+		$pluginlog = plugin_dir_path(__FILE__).'debug.log';
+		$user = wp_get_current_user();
+		if($user && is_user_logged_in()){
+			$question_asked = get_user_meta( $user->ID, '_bloksec_question_asked', true );
+			error_log($question_asked, 3, $pluginlog);
+			if ( !$question_asked ) {
+
+			?>
+			<script>
+				function callBackend(action, close){
+					const data = new FormData();
+					data.append('action', action);
+					fetch( '<?php echo admin_url('admin-ajax.php'); ?>', {
+						method: "POST",
+						credentials: 'same-origin',
+						body: data
+					})
+						.then(response => response.json())
+						.then(commits => {
+							document.getElementById('register-content').style.display = 'none';
+							document.getElementById('thankyou-content').style.display = 'block';
+							if(close) closeRegisterPopup();
+						});
+				}
+
+				function openRegisterPopup(){
+					const element = document.getElementById('registerPopup');
+					element.style.display = 'grid';
+				}
+				function closeRegisterPopup(){
+					const element = document.getElementById('registerPopup');
+					element.style.display = 'none';
+				}
+			</script>
+			<style>
+			#thankyou-content {
+				display: none;
+			}
+			.register-popup{
+				background: rgba(0,0,0,0.7);
+				place-items: center;
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				z-index: 4;
+			}
+			.input:focus{
+				border-color: #007cba;
+				box-shadow: 0 0 0 1px #007cba;
+				outline: 2px solid transparent;
+			}
+			.popup-content {
+				padding: 50px;
+				position: relative;
+				display: grid;
+				align-items: center;
+				width: 300px;
+				height 400px!important;
+				background-color: white;
+				color: rgba(0,0,0,0.8);
+				border-radius: 10px;
+			}
+			.popup-content {
+				padding: 50px;
+				position: relative;
+				display: grid;
+				align-items: center;
+				background-color: white;
+				color: rgba(0,0,0,0.8);
+				border-radius: 10px;
+				width: 600px;
+				margin: auto;
+				margin-top: 200px;
+			}
+			.bloksec-buttons {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				grid-gap: 20px;
+				padding: 20px 0px;
+			}
+			.bloksec-header {
+				margin-top: 0px;
+			}
+			</style>
+			<div id="registerPopup" class="register-popup">
+				<div id="register-content" class="popup-content">
+					<h3 class="bloksec-header">Register for passwordless login</h3>
+					<p>Would you like to try passwordless login?</p>
+					<div class="bloksec-buttons">
+						<button type="button" class="button button-primary button-large" onclick="callBackend('register_for_bloksec', false)">Register</button>
+						<button type="button" class="button button-large" onclick="callBackend('ignore_bloksec_question', true)">No thank you</button>
+					</div>
+				</div>
+				<div id="thankyou-content" class="popup-content">
+					<h3 class="bloksec-header">Thank you!</h3>
+					<p>An email has been sent with instructions on how to complete the setup of passwordless login.</p>
+					<div class="bloksec-buttons">
+						<button type="button" class="button button-large" onclick="closeRegisterPopup()">Close</button>
+					</div>
+				</div>
+			</div>
+
+			<?php
+			}
+		}
+	}
+
 }
 
 OpenID_Connect_Generic::bootstrap();

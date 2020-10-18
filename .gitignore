@@ -52,3 +52,4 @@ vendor
 dist
 wordpress
 dist.zip
+languages/openid-connect-generic.pot

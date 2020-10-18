@@ -147,12 +147,12 @@ class OpenID_Connect_Generic_Client_Wrapper {
 	 */
 	function get_authentication_url( $atts = array() ) {
 
-		if ( ! empty( $atts['redirect_to'] ) ) {
-			// Set the request query parameter used to set the cookie redirect.
-			$_REQUEST['redirect_to'] = $atts['redirect_to'];
-			$login_form = new OpenID_Connect_Generic_Login_Form( $this->settings, $this );
-			$login_form->handle_redirect_cookie();
-		}
+		// if ( ! empty( $atts['redirect_to'] ) ) {
+		// 	// Set the request query parameter used to set the cookie redirect.
+		// 	$_REQUEST['redirect_to'] = $atts['redirect_to'];
+		// 	$login_form = new OpenID_Connect_Generic_Login_Form( $this->settings, $this );
+		// 	$login_form->handle_redirect_cookie();
+		// }
 
 		return $this->client->make_authentication_url( $atts );
 
@@ -336,7 +336,7 @@ class OpenID_Connect_Generic_Client_Wrapper {
 	 */
 	function authentication_request_callback() {
 		$client = $this->client;
-
+		$pluginlog = plugin_dir_path(__FILE__).'debug.log';
 		// Start the authentication flow.
 		$authentication_request = $client->validate_authentication_request( $_GET );
 
@@ -346,21 +346,24 @@ class OpenID_Connect_Generic_Client_Wrapper {
 
 		// Retrieve the authentication code from the authentication request.
 		$code = $client->get_authentication_code( $authentication_request );
-
+		error_log("1111111111111111EST@@@@@@@@@@@@@" , 3, $pluginlog);
+		error_log($code , 3, $pluginlog);
 		if ( is_wp_error( $code ) ) {
 			$this->error_redirect( $code );
 		}
 
 		// Attempting to exchange an authorization code for an authentication token.
 		$token_result = $client->request_authentication_token( $code );
-
+		error_log("2222222222222222EST@@@@@@@@@@@@@" , 3, $pluginlog);
+		error_log($token_result , 3, $pluginlog);
 		if ( is_wp_error( $token_result ) ) {
 			$this->error_redirect( $token_result );
 		}
 
 		// Get the decoded response from the authentication request result.
 		$token_response = $client->get_token_response( $token_result );
-
+		error_log("3333333333333333EST@@@@@@@@@@@@@" , 3, $pluginlog);
+		error_log($token_response , 3, $pluginlog);
 		// Allow for other plugins to alter data before validation.
 		$token_response = apply_filters( 'openid-connect-modify-token-response-before-validation', $token_response );
 
@@ -421,7 +424,8 @@ class OpenID_Connect_Generic_Client_Wrapper {
 		 */
 		$subject_identity = $client->get_subject_identity( $id_token_claim );
 		$user = $this->get_user_by_identity( $subject_identity );
-
+		error_log("#################TEST@@@@@@@@@@@@@" , 3, $pluginlog);
+		error_log($subject_identity , 3, $pluginlog);
 		if ( ! $user ) {
 			if ( $this->settings->create_if_does_not_exist ) {
 				$user = $this->create_new_user( $subject_identity, $user_claim );
@@ -429,6 +433,8 @@ class OpenID_Connect_Generic_Client_Wrapper {
 					$this->error_redirect( $user );
 				}
 			} else {
+				error_log("#################TEST@@@@@@@@@@@@@" , 3, $pluginlog);
+				error_log($subject_identity , 3, $pluginlog);
 				$this->error_redirect( new WP_Error( 'identity-not-map-existing-user', __( 'User identity is not linked to an existing WordPress user.', 'bloksec-oidc' ), $user_claim ) );
 			}
 		} else {
@@ -724,6 +730,9 @@ class OpenID_Connect_Generic_Client_Wrapper {
 	 */
 	function create_new_user( $subject_identity, $user_claim ) {
 		$user_claim = apply_filters( 'openid-connect-generic-alter-user-claim', $user_claim );
+
+		$pluginlog = plugin_dir_path(__FILE__).'debug.log';
+		error_log("#################TEST43231@@@@@@@@@@@@@" , 3, $pluginlog);
 
 		// Default username & email to the subject identity.
 		$username       = $subject_identity;
