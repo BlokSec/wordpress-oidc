@@ -343,6 +343,9 @@ class OpenID_Connect_Generic {
 				'endpoint_token'       => defined( 'OIDC_ENDPOINT_TOKEN_URL' ) ? OIDC_ENDPOINT_TOKEN_URL : 'https://api.bloksec.io/oidc/token',
 				'endpoint_end_session' => defined( 'OIDC_ENDPOINT_LOGOUT_URL' ) ? OIDC_ENDPOINT_LOGOUT_URL : 'https://api.bloksec.io/oidc/session/end',
 
+				'register_popup_title'       => defined( 'OIDC_REGISTER_POPUP_TITLE' ) ? OIDC_REGISTER_POPUP_TITLE : 'Register for passwordless login',
+				'register_popup_content'       => defined( 'OIDC_REGISTER_POPUP_CONTENT' ) ? OIDC_REGISTER_POPUP_CONTENT : 'Would you like to try passwordless login?',
+
 				// Non-standard settings.
 				'no_sslverify'    => 0,
 				'http_request_timeout' => 5,
@@ -350,7 +353,7 @@ class OpenID_Connect_Generic {
 				'nickname_key'    => 'email',
 				'email_format'       => '{email}',
 				'displayname_format' => '',
-				'identify_with_username' => false,
+				'identify_with_username' => true,
 
 				// Plugin settings.
 				'enforce_privacy' => 0,
@@ -360,7 +363,7 @@ class OpenID_Connect_Generic {
 				'create_if_does_not_exist' => 1,
 				'redirect_user_back' => 0,
 				'redirect_on_logout' => 1,
-				'enable_logging'  => 0,
+				'enable_logging'  => 1,
 				'log_limit'       => 1000,
 			)
 		);
@@ -393,7 +396,7 @@ class OpenID_Connect_Generic {
 				'email' => $email
 			);
 			$accountBody = array(
-				'name' => $email,
+				'name' => $username,
 				'appId' => $this->settings->client_id
 			);
 			$body = array(
@@ -422,13 +425,10 @@ class OpenID_Connect_Generic {
 	 * Loads pop-up on first login.
 	 */
 	function login_question() {
-		$pluginlog = plugin_dir_path(__FILE__).'debug.log';
 		$user = wp_get_current_user();
 		if($user && is_user_logged_in()){
 			$question_asked = get_user_meta( $user->ID, '_bloksec_question_asked', true );
-			error_log($question_asked, 3, $pluginlog);
 			if ( !$question_asked ) {
-
 			?>
 			<script>
 				function callBackend(action, close){
@@ -510,8 +510,8 @@ class OpenID_Connect_Generic {
 			</style>
 			<div id="registerPopup" class="register-popup">
 				<div id="register-content" class="popup-content">
-					<h3 class="bloksec-header">Register for passwordless login</h3>
-					<p>Would you like to try passwordless login?</p>
+					<h3 class="bloksec-header"><?php echo $this->settings->register_popup_title; ?></h3>
+					<p><?php echo $this->settings->register_popup_content; ?></p>
 					<div class="bloksec-buttons">
 						<button type="button" class="button button-primary button-large" onclick="callBackend('register_for_bloksec', false)">Register</button>
 						<button type="button" class="button button-large" onclick="callBackend('ignore_bloksec_question', true)">No thank you</button>

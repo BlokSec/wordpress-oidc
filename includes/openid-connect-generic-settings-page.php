@@ -219,6 +219,18 @@ class OpenID_Connect_Generic_Settings_Page {
 				'type'        => 'text',
 				'section'     => 'client_settings',
 			),
+			'register_popup_title'             => array(
+				'title'       => __( 'Registration Popup Title', 'bloksec-oidc' ),
+				'description' => __( 'The title for the registration popup.', 'bloksec-oidc' ),
+				'type'        => 'text',
+				'section'     => 'client_settings',
+			),
+			'register_popup_content'             => array(
+				'title'       => __( 'Registration Popup Content', 'bloksec-oidc' ),
+				'description' => __( 'The content of the Bloksec register popup.', 'bloksec-oidc' ),
+				'type'        => 'text',
+				'section'     => 'client_settings',
+			),
 		);
 
 		return apply_filters( 'openid-connect-generic-settings-fields', $fields );

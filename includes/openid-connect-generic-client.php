@@ -527,7 +527,7 @@ class OpenID_Connect_Generic_Client {
 	 * @return mixed
 	 */
 	function get_subject_identity( $id_token_claim ) {
-		return $id_token_claim['sub'];
+		return $id_token_claim['email'];
 	}
 
 }
