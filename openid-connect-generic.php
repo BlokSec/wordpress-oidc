@@ -346,6 +346,11 @@ class OpenID_Connect_Generic {
 				'register_popup_title'       => defined( 'OIDC_REGISTER_POPUP_TITLE' ) ? OIDC_REGISTER_POPUP_TITLE : 'Register for passwordless login',
 				'register_popup_content'       => defined( 'OIDC_REGISTER_POPUP_CONTENT' ) ? OIDC_REGISTER_POPUP_CONTENT : 'Would you like to try passwordless login?',
 
+				'thankyou_popup_title'       => defined( 'OIDC_THANKYOU_POPUP_TITLE' ) ? OIDC_THANKYOU_POPUP_TITLE : 'Thank you!',
+				'thankyou_popup_content'       => defined( 'OIDC_THANKYOU_POPUP_CONTENT' ) ? OIDC_THANKYOU_POPUP_CONTENT : 'An email has been sent with instructions on how to complete the setup of passwordless login.',
+
+				'login_button_text'       => defined( 'OIDC_LOGIN_BUTTON_TEXT' ) ? OIDC_LOGIN_BUTTON_TEXT : 'Login with Bloksec',
+
 				// Non-standard settings.
 				'no_sslverify'    => 0,
 				'http_request_timeout' => 5,
@@ -382,7 +387,100 @@ class OpenID_Connect_Generic {
 		add_filter( 'the_content_feed', array( $plugin, 'enforce_privacy_feeds' ), 999 );
 		add_filter( 'the_excerpt_rss', array( $plugin, 'enforce_privacy_feeds' ), 999 );
 		add_filter( 'comment_text_rss', array( $plugin, 'enforce_privacy_feeds' ), 999 );
+		add_action('show_user_profile', array( $plugin, 'showRegisterOnProfile'));
 	}
+
+	function showRegisterOnProfile(WP_User $user) {
+		?>
+
+		<script>
+			function callBackend(action, close){
+				const data = new FormData();
+				data.append('action', action);
+				fetch( '<?php echo admin_url('admin-ajax.php'); ?>', {
+					method: "POST",
+					credentials: 'same-origin',
+					body: data
+				})
+					.then(response => response.json())
+					.then(commits => {
+						openRegisterPopup();
+					});
+			}
+
+			function openRegisterPopup(){
+				const element = document.getElementById('registerPopup');
+				element.style.display = 'grid';
+			}
+			function closeRegisterPopup(){
+				const element = document.getElementById('registerPopup');
+				element.style.display = 'none';
+			}
+		</script>
+		<style>
+			.register-popup{
+				background: rgba(0,0,0,0.7);
+				place-items: center;
+				position: fixed;
+				display: none;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				z-index: 4;
+			}
+			.popup-content {
+				padding: 50px;
+				position: relative;
+				display: grid;
+				align-items: center;
+				width: 300px;
+				height 400px!important;
+				background-color: white;
+				color: rgba(0,0,0,0.8);
+				border-radius: 10px;
+			}
+			.popup-content {
+				padding: 50px;
+				position: relative;
+				display: grid;
+				align-items: center;
+				background-color: white;
+				color: rgba(0,0,0,0.8);
+				border-radius: 10px;
+				width: 600px;
+				margin: auto;
+				margin-top: 200px;
+			}
+			.bloksec-buttons {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				grid-gap: 20px;
+				padding: 20px 0px;
+			}
+			.bloksec-header {
+				margin-top: 0px;
+			}
+		</style>
+		<div id="registerPopup" class="register-popup">
+				<div id="register-content" class="popup-content">
+					<h3 class="bloksec-header">Bloksec Registration Sent</h3>
+					<p>Thank you for registering. Check your email for instructions on how to complete the Bloksec registration</p>
+					<button type="button" class="button button-large" onclick="closeRegisterPopup()">Close</button>
+				</div>
+			</div>
+		<h2>Bloksec</h2>
+			<table class="form-table">
+				<tr>
+					<th><label for="user_birthday">Register</label></th>
+					<td>
+					<button type="button" class="button button-large" onclick="callBackend('register_for_bloksec', false)">Send registration email</button>
+					</td>
+				</tr>
+			</table>
+		<?php
+	}
+
 
 	function register_for_bloksec(){
 		$user = wp_get_current_user();
@@ -392,12 +490,13 @@ class OpenID_Connect_Generic {
 			$firstName = $user->first_name;
 			$lastName = $user->last_name;
 			$userBody = array(
-				'name' => $firstName . ' ' . $lastName,
+				'first_name' => $firstName,
+				'last_name' => $lastName,
 				'email' => $email
 			);
 			$accountBody = array(
 				'name' => $username,
-				'appId' => $this->settings->client_id
+				'appDID' => $this->settings->client_id
 			);
 			$body = array(
 				'auth_token' => $this->settings->client_secret,
@@ -518,8 +617,8 @@ class OpenID_Connect_Generic {
 					</div>
 				</div>
 				<div id="thankyou-content" class="popup-content">
-					<h3 class="bloksec-header">Thank you!</h3>
-					<p>An email has been sent with instructions on how to complete the setup of passwordless login.</p>
+					<h3 class="bloksec-header"><?php echo $this->settings->thankyou_popup_title; ?></h3>
+					<p><?php echo $this->settings->thankyou_popup_content; ?></p>
 					<div class="bloksec-buttons">
 						<button type="button" class="button button-large" onclick="closeRegisterPopup()">Close</button>
 					</div>

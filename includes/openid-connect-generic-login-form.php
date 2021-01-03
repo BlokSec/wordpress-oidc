@@ -171,7 +171,7 @@ class OpenID_Connect_Generic_Login_Form {
 	 * @return string
 	 */
 	function make_login_button( $atts = array() ) {
-		$button_text = __( 'Login with Bloksec', 'bloksec-oidc' );
+		$button_text = __( $this->settings->login_button_text, 'bloksec-oidc' );
 		if ( ! empty( $atts['button_text'] ) ) {
 			$button_text = $atts['button_text'];
 		}
