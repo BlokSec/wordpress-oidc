@@ -2,41 +2,42 @@
 /**
  * Plugin OIDC/oAuth client warpper class.
  *
- * @package   Bloksec_OIDC
+ * @package   BlokSec_OIDC
  * @category  Authentication
  * @author    Jonathan Daggerhart <jonathan@daggerhart.com>
- * @copyright 2015-2020 Bloksec
+ * @author    Kevin Wicken <kwicken@bloksec.com>
+ * @copyright 2015-2020 BlokSec
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt GPL-2.0+
  */
 
 /**
- * OpenID_Connect_Generic_Client_Wrapper class.
+ * BlokSec_OIDC_Client_Wrapper class.
  *
  * Plugin OIDC/oAuth client wrapper class.
  *
- * @package  Bloksec_OIDC
+ * @package  BlokSec_OIDC
  * @category Authentication
  */
-class OpenID_Connect_Generic_Client_Wrapper {
+class BlokSec_OIDC_Client_Wrapper {
 
 	/**
 	 * The client object instance.
 	 *
-	 * @var OpenID_Connect_Generic_Client
+	 * @var BlokSec_OIDC_Client
 	 */
 	private $client;
 
 	/**
 	 * The settings object instance.
 	 *
-	 * @var OpenID_Connect_Generic_Option_Settings
+	 * @var BlokSec_OIDC_Option_Settings
 	 */
 	private $settings;
 
 	/**
 	 * The logger object instance.
 	 *
-	 * @var OpenID_Connect_Generic_Option_Logger
+	 * @var BlokSec_OIDC_Option_Logger
 	 */
 	private $logger;
 
@@ -66,11 +67,11 @@ class OpenID_Connect_Generic_Client_Wrapper {
 	/**
 	 * Inject necessary objects and services into the client.
 	 *
-	 * @param OpenID_Connect_Generic_Client          $client   A plugin client object instance.
-	 * @param OpenID_Connect_Generic_Option_Settings $settings A plugin settings object instance.
-	 * @param OpenID_Connect_Generic_Option_Logger   $logger   A plugin logger object instance.
+	 * @param BlokSec_OIDC_Client          $client   A plugin client object instance.
+	 * @param BlokSec_OIDC_Option_Settings $settings A plugin settings object instance.
+	 * @param BlokSec_OIDC_Option_Logger   $logger   A plugin logger object instance.
 	 */
-	function __construct( OpenID_Connect_Generic_Client $client, OpenID_Connect_Generic_Option_Settings $settings, OpenID_Connect_Generic_Option_Logger $logger ) {
+	function __construct( BlokSec_OIDC_Client $client, BlokSec_OIDC_Option_Settings $settings, BlokSec_OIDC_Option_Logger $logger ) {
 		$this->client = $client;
 		$this->settings = $settings;
 		$this->logger = $logger;
@@ -79,13 +80,13 @@ class OpenID_Connect_Generic_Client_Wrapper {
 	/**
 	 * Hook the client into WordPress.
 	 *
-	 * @param \OpenID_Connect_Generic_Client          $client   The plugin client instance.
-	 * @param \OpenID_Connect_Generic_Option_Settings $settings The plugin settings instance.
-	 * @param \OpenID_Connect_Generic_Option_Logger   $logger   The plugin logger instance.
+	 * @param \BlokSec_OIDC_Client          $client   The plugin client instance.
+	 * @param \BlokSec_OIDC_Option_Settings $settings The plugin settings instance.
+	 * @param \BlokSec_OIDC_Option_Logger   $logger   The plugin logger instance.
 	 *
-	 * @return \OpenID_Connect_Generic_Client_Wrapper
+	 * @return \BlokSec_OIDC_Client_Wrapper
 	 */
-	static public function register( OpenID_Connect_Generic_Client $client, OpenID_Connect_Generic_Option_Settings $settings, OpenID_Connect_Generic_Option_Logger $logger ) {
+	static public function register( BlokSec_OIDC_Client $client, BlokSec_OIDC_Option_Settings $settings, BlokSec_OIDC_Option_Logger $logger ) {
 		$client_wrapper  = new self( $client, $settings, $logger );
 
 		// Integrated logout.
@@ -150,7 +151,7 @@ class OpenID_Connect_Generic_Client_Wrapper {
 		// if ( ! empty( $atts['redirect_to'] ) ) {
 		// 	// Set the request query parameter used to set the cookie redirect.
 		// 	$_REQUEST['redirect_to'] = $atts['redirect_to'];
-		// 	$login_form = new OpenID_Connect_Generic_Login_Form( $this->settings, $this );
+		// 	$login_form = new BlokSec_OIDC_Login_Form( $this->settings, $this );
 		// 	$login_form->handle_redirect_cookie();
 		// }
 

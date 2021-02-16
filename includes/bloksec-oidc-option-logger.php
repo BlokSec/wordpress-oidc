@@ -2,22 +2,23 @@
 /**
  * Plugin logging class.
  *
- * @package   Bloksec_OIDC
+ * @package   BlokSec_OIDC
  * @category  Logging
  * @author    Jonathan Daggerhart <jonathan@daggerhart.com>
- * @copyright 2015-2020 Bloksec
+ * @author    Kevin Wicken <kwicken@bloksec.com>
+ * @copyright 2015-2020 BlokSec
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt GPL-2.0+
  */
 
 /**
- * OpenID_Connect_Generic_Option_Logger class.
+ * BlokSec_OIDC_Option_Logger class.
  *
  * Simple class for logging messages to the options table.
  *
- * @package  Bloksec_OIDC
+ * @package  BlokSec_OIDC
  * @category Logging
  */
-class OpenID_Connect_Generic_Option_Logger {
+class BlokSec_OIDC_Option_Logger {
 
 	/**
 	 * Thw WordPress option name/key.

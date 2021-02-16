@@ -1,11 +1,12 @@
 {
-	"name": "openid-connect-generic",
+	"name": "bloksec-oidc",
 	"version": "3.8.0",
-	"description": "Bloksec OpenID Connect WordPress plugin.",
+	"description": "BlokSec OpenID Connect WordPress plugin.",
 	"main": "Gruntfile.js",
 	"keywords": [
 		"wordpress",
-		"openid"
+		"openid",
+		"bloksec"
 	],
 	"author": "Kevin Wicken",
 	"license": "GPL-2.0-only",

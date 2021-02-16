@@ -2,34 +2,35 @@
 /**
  * Plugin Admin settings page class.
  *
- * @package   Bloksec_OIDC
+ * @package   BlokSec_OIDC
  * @category  Settings
  * @author    Jonathan Daggerhart <jonathan@daggerhart.com>
- * @copyright 2015-2020 Bloksec
+ * @author    Kevin Wicken <kwicken@bloksec.com>
+ * @copyright 2015-2020 BlokSec
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt GPL-2.0+
  */
 
 /**
- * OpenID_Connect_Generic_Settings_Page class.
+ * BlokSec_OIDC_Settings_Page class.
  *
  * Admin settings page.
  *
- * @package Bloksec_OIDC
+ * @package BlokSec_OIDC
  * @category  Settings
  */
-class OpenID_Connect_Generic_Settings_Page {
+class BlokSec_OIDC_Settings_Page {
 
 	/**
 	 * Local copy of the settings provided by the base plugin.
 	 *
-	 * @var OpenID_Connect_Generic_Option_Settings
+	 * @var BlokSec_OIDC_Option_Settings
 	 */
 	private $settings;
 
 	/**
 	 * Instance of the plugin logger.
 	 *
-	 * @var OpenID_Connect_Generic_Option_Logger
+	 * @var BlokSec_OIDC_Option_Logger
 	 */
 	private $logger;
 
@@ -58,10 +59,10 @@ class OpenID_Connect_Generic_Settings_Page {
 	/**
 	 * Settings page class constructor.
 	 *
-	 * @param OpenID_Connect_Generic_Option_Settings $settings The plugin settings object.
-	 * @param OpenID_Connect_Generic_Option_Logger   $logger   The plugin logging class object.
+	 * @param BlokSec_OIDC_Option_Settings $settings The plugin settings object.
+	 * @param BlokSec_OIDC_Option_Logger   $logger   The plugin logging class object.
 	 */
-	function __construct( OpenID_Connect_Generic_Option_Settings $settings, OpenID_Connect_Generic_Option_Logger $logger ) {
+	function __construct( BlokSec_OIDC_Option_Settings $settings, BlokSec_OIDC_Option_Logger $logger ) {
 
 		$this->settings             = $settings;
 		$this->logger               = $logger;
@@ -82,12 +83,12 @@ class OpenID_Connect_Generic_Settings_Page {
 	/**
 	 * Hook the settings page into WordPress.
 	 *
-	 * @param OpenID_Connect_Generic_Option_Settings $settings A plugin settings object instance.
-	 * @param OpenID_Connect_Generic_Option_Logger   $logger   A plugin logger object instance.
+	 * @param BlokSec_OIDC_Option_Settings $settings A plugin settings object instance.
+	 * @param BlokSec_OIDC_Option_Logger   $logger   A plugin logger object instance.
 	 *
 	 * @return void
 	 */
-	static public function register( OpenID_Connect_Generic_Option_Settings $settings, OpenID_Connect_Generic_Option_Logger $logger ) {
+	static public function register( BlokSec_OIDC_Option_Settings $settings, BlokSec_OIDC_Option_Logger $logger ) {
 		$settings_page = new self( $settings, $logger );
 
 		// Add our options page the the admin menu.
@@ -105,8 +106,8 @@ class OpenID_Connect_Generic_Settings_Page {
 	 */
 	public function admin_menu() {
 		add_options_page(
-			__( 'Bloksec - OpenID Connect', 'bloksec-oidc' ),
-			__( 'Bloksec OIDC', 'bloksec-oidc' ),
+			__( 'BlokSec - OpenID Connect', 'bloksec-oidc' ),
+			__( 'BlokSec OIDC', 'bloksec-oidc' ),
 			'manage_options',
 			$this->options_page_name,
 			array( $this, 'settings_page' )
@@ -192,7 +193,7 @@ class OpenID_Connect_Generic_Settings_Page {
 				'description' => __( 'Select how the client (login form) should provide login options.', 'bloksec-oidc' ),
 				'type'        => 'select',
 				'options'     => array(
-					'button' => __( 'Bloksec button on login form', 'bloksec-oidc' ),
+					'button' => __( 'BlokSec button on login form', 'bloksec-oidc' ),
 					'auto'   => __( 'Auto Login - SSO', 'bloksec-oidc' ),
 				),
 				'section'     => 'client_settings',
@@ -227,7 +228,7 @@ class OpenID_Connect_Generic_Settings_Page {
 			),
 			'register_popup_content'             => array(
 				'title'       => __( 'Registration Popup Content', 'bloksec-oidc' ),
-				'description' => __( 'The content of the Bloksec register popup.', 'bloksec-oidc' ),
+				'description' => __( 'The content of the BlokSec register popup.', 'bloksec-oidc' ),
 				'type'        => 'text',
 				'section'     => 'client_settings',
 			),
@@ -239,13 +240,13 @@ class OpenID_Connect_Generic_Settings_Page {
 			),
 			'thankyou_popup_content'             => array(
 				'title'       => __( 'Thank you Popup Content', 'bloksec-oidc' ),
-				'description' => __( 'The content of the Bloksec thank you popup.', 'bloksec-oidc' ),
+				'description' => __( 'The content of the BlokSec thank you popup.', 'bloksec-oidc' ),
 				'type'        => 'text',
 				'section'     => 'client_settings',
 			),
 			'login_button_text'             => array(
 				'title'       => __( 'Login button text', 'bloksec-oidc' ),
-				'description' => __( 'The text for the Bloksec login button.', 'bloksec-oidc' ),
+				'description' => __( 'The text for the BlokSec login button.', 'bloksec-oidc' ),
 				'type'        => 'text',
 				'section'     => 'client_settings',
 			),
@@ -414,7 +415,7 @@ class OpenID_Connect_Generic_Settings_Page {
 	 * @return void
 	 */
 	public function client_settings_description() {
-		_e( 'Enter your Bloksec application config.', 'bloksec-oidc' );
+		_e( 'Enter your BlokSec application config.', 'bloksec-oidc' );
 	}
 
 	/**

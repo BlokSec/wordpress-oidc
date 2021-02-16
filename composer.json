@@ -2,7 +2,7 @@
 	"name": "bloksec/oidc-wordpress",
 	"type": "wordpress-plugin",
 	"license": "GPL-2.0-only",
-	"description": "Bloksec WordPress plugin.",
+	"description": "BlokSec WordPress plugin.",
 	"keywords": [
 		"wordpress",
 		"openid"

@@ -2,42 +2,43 @@
 /**
  * Login form and login button handlong class.
  *
- * @package   Bloksec_OIDC
+ * @package   BlokSec_OIDC
  * @category  Login
  * @author    Jonathan Daggerhart <jonathan@daggerhart.com>
- * @copyright 2015-2020 Bloksec
+ * @author    Kevin Wicken <kwicken@bloksec.com>
+ * @copyright 2015-2020 BlokSec
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt GPL-2.0+
  */
 
 /**
- * OpenID_Connect_Generic_Login_Form class.
+ * BlokSec_OIDC_Login_Form class.
  *
  * Login form and login button handlong.
  *
- * @package Bloksec_OIDC
+ * @package BlokSec_OIDC
  * @category  Login
  */
-class OpenID_Connect_Generic_Login_Form {
+class BlokSec_OIDC_Login_Form {
 
 	/**
 	 * Plugin settings object.
 	 *
-	 * @var OpenID_Connect_Generic_Option_Settings
+	 * @var BlokSec_OIDC_Option_Settings
 	 */
 	private $settings;
 
 	/**
 	 * Plugin client wrapper instance.
 	 *
-	 * @var OpenID_Connect_Generic_Client_Wrapper
+	 * @var BlokSec_OIDC_Client_Wrapper
 	 */
 	private $client_wrapper;
 
 	/**
 	 * The class constructor.
 	 *
-	 * @param OpenID_Connect_Generic_Option_Settings $settings       A plugin settings object instance.
-	 * @param OpenID_Connect_Generic_Client_Wrapper  $client_wrapper A plugin client wrapper object instance.
+	 * @param BlokSec_OIDC_Option_Settings $settings       A plugin settings object instance.
+	 * @param BlokSec_OIDC_Client_Wrapper  $client_wrapper A plugin client wrapper object instance.
 	 */
 	function __construct( $settings, $client_wrapper ) {
 		$this->settings = $settings;
@@ -48,10 +49,10 @@ class OpenID_Connect_Generic_Login_Form {
 	}
 
 	/**
-	 * Create an instance of the OpenID_Connect_Generic_Login_Form class.
+	 * Create an instance of the BlokSec_OIDC_Login_Form class.
 	 *
-	 * @param OpenID_Connect_Generic_Option_Settings $settings       A plugin settings object instance.
-	 * @param OpenID_Connect_Generic_Client_Wrapper  $client_wrapper A plugin client wrapper object instance.
+	 * @param BlokSec_OIDC_Option_Settings $settings       A plugin settings object instance.
+	 * @param BlokSec_OIDC_Client_Wrapper  $client_wrapper A plugin client wrapper object instance.
 	 *
 	 * @return void
 	 */

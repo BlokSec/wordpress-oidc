@@ -1,0 +1,298 @@
+# Copyright (C) 2021
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/bloksec-wordpress-oidc\n"
+"POT-Creation-Date: 2021-02-12 02:03:11+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Country: United States\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
+"attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-Bookmarks: \n"
+"X-Textdomain-Support: yes\n"
+"X-Generator: grunt-wp-i18n 1.0.3\n"
+
+#: bloksec-oidc.php:209
+msgid "Private site"
+msgstr ""
+
+#: includes/bloksec-oidc-client-wrapper.php:198
+msgid "Session expired. Please login again."
+msgstr ""
+
+#: includes/bloksec-oidc-client-wrapper.php:429
+msgid "User identity is not linked to an existing WordPress user."
+msgstr ""
+
+#: includes/bloksec-oidc-client-wrapper.php:475
+msgid "Invalid user."
+msgstr ""
+
+#: includes/bloksec-oidc-client-wrapper.php:594
+msgid "No appropriate username found."
+msgstr ""
+
+#: includes/bloksec-oidc-client-wrapper.php:601
+msgid "Username %1$s could not be transliterated."
+msgstr ""
+
+#: includes/bloksec-oidc-client-wrapper.php:605
+msgid "Username %1$s could not be normalized."
+msgstr ""
+
+#: includes/bloksec-oidc-client-wrapper.php:638
+msgid "No nickname found in user claim using key: %1$s."
+msgstr ""
+
+#: includes/bloksec-oidc-client-wrapper.php:665
+msgid "User claim incomplete."
+msgstr ""
+
+#: includes/bloksec-oidc-client-wrapper.php:767
+msgid "Bad user claim result."
+msgstr ""
+
+#: includes/bloksec-oidc-client-wrapper.php:822
+msgid "Can not authorize."
+msgstr ""
+
+#: includes/bloksec-oidc-client-wrapper.php:841
+msgid "Failed user creation."
+msgstr ""
+
+#: includes/bloksec-oidc-client.php:180
+msgid "Missing state."
+msgstr ""
+
+#: includes/bloksec-oidc-client.php:184
+msgid "Invalid state."
+msgstr ""
+
+#: includes/bloksec-oidc-client.php:199
+msgid "Missing authentication code."
+msgstr ""
+
+#: includes/bloksec-oidc-client.php:238
+msgid "Request for authentication token failed."
+msgstr ""
+
+#: includes/bloksec-oidc-client.php:269
+msgid "Refresh token failed."
+msgstr ""
+
+#: includes/bloksec-oidc-client.php:284
+msgid "Missing token body."
+msgstr ""
+
+#: includes/bloksec-oidc-client.php:292
+msgid "Invalid token."
+msgstr ""
+
+#: includes/bloksec-oidc-client.php:343
+msgid "Request for userinfo failed."
+msgstr ""
+
+#: includes/bloksec-oidc-client.php:418
+msgid "No identity token."
+msgstr ""
+
+#: includes/bloksec-oidc-client.php:425
+msgid "Missing identity token."
+msgstr ""
+
+#: includes/bloksec-oidc-client.php:452
+msgid "Bad ID token claim."
+msgstr ""
+
+#: includes/bloksec-oidc-client.php:457
+msgid "No subject identity."
+msgstr ""
+
+#: includes/bloksec-oidc-client.php:476
+msgid "Bad user claim."
+msgstr ""
+
+#: includes/bloksec-oidc-client.php:496
+msgid "Invalid user claim."
+msgstr ""
+
+#: includes/bloksec-oidc-client.php:501
+msgid "Error from the IDP."
+msgstr ""
+
+#: includes/bloksec-oidc-client.php:510
+msgid "Incorrect user claim."
+msgstr ""
+
+#: includes/bloksec-oidc-client.php:517
+msgid "Unauthorized access."
+msgstr ""
+
+#: includes/bloksec-oidc-login-form.php:159
+msgid "ERROR (%1$s)"
+msgstr ""
+
+#: includes/bloksec-oidc-option-logger.php:266
+msgid "Type"
+msgstr ""
+
+#: includes/bloksec-oidc-option-logger.php:270
+msgid "Date"
+msgstr ""
+
+#: includes/bloksec-oidc-option-logger.php:274
+msgid "User"
+msgstr ""
+
+#: includes/bloksec-oidc-option-logger.php:278
+msgid "URI "
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:109
+msgid "BlokSec - OpenID Connect"
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:110
+msgid "BlokSec OIDC"
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:134
+msgid "Client Settings"
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:192
+msgid "Login Type"
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:193
+msgid "Select how the client (login form) should provide login options."
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:196
+msgid "BlokSec button on login form"
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:197
+msgid "Auto Login - SSO"
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:202
+msgid "Client ID"
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:203
+msgid ""
+"The ID this client will be recognized as when connecting the to Identity "
+"provider server."
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:210
+msgid "Client Secret Key"
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:211
+msgid ""
+"Arbitrary secret key the server expects from this client. Can be anything, "
+"but should be very unique."
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:217
+msgid "OpenID Scope"
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:218
+msgid "Space separated list of scopes this client should access."
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:224
+msgid "Registration Popup Title"
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:225
+msgid "The title for the registration popup."
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:230
+msgid "Registration Popup Content"
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:231
+msgid "The content of the BlokSec register popup."
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:236
+msgid "Thank you Popup Title"
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:237
+msgid "The title for the thank you popup."
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:242
+msgid "Thank you Popup Content"
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:243
+msgid "The content of the BlokSec thank you popup."
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:248
+msgid "Login button text"
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:249
+msgid "The text for the BlokSec login button."
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:309
+msgid "Notes"
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:312
+msgid "Redirect URI"
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:316
+msgid "Login Button Shortcode"
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:320
+msgid "Authentication URL Shortcode"
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:325
+msgid "Logs"
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:405
+msgid "Example"
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:418
+msgid "Enter your BlokSec application config."
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:427
+msgid "Modify the interaction between OpenID Connect and WordPress users."
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:436
+msgid "Control the authorization mechanics of the site."
+msgstr ""
+
+#: includes/bloksec-oidc-settings-page.php:445
+msgid "Log information about login attempts through OpenID Connect Generic."
+msgstr ""

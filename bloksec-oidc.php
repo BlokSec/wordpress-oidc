@@ -1,24 +1,24 @@
 <?php
 /**
- * Bloksec OpenID Connect Client
+ * BlokSec OpenID Connect Client
  *
  * This plugin provides the ability to authenticate users with Identity
  * Providers using the OpenID Connect OAuth2 API with Authorization Code Flow.
  *
- * @package   Bloksec_OIDC
+ * @package   BlokSec_OIDC
  * @category  General
  * @author    Kevin Wicken <kwicken@bloksec.com>
- * @copyright 2015-2020 Bloksec
+ * @copyright 2015-2020 BlokSec
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt GPL-2.0+
  * @link      https://github.com/wicken
  *
  * @wordpress-plugin
- * Plugin Name:       Bloksec OpenID Connect
+ * Plugin Name:       BlokSec OpenID Connect
  * Plugin URI:        https://bloksec.com
- * Description:       Connect to an Bloksec OpenID Connect client.
+ * Description:       Connect to an BlokSec OpenID Connect client.
  * Version:           3.0.0
- * Author:            Bloksec Inc.
- * Author URI:        https://bloksec.com
+ * Author:            BlokSec Inc.
+ * Author URI:        https://github.com/wicken
  * Text Domain:       bloksec-oidc
  * Domain Path:       /languages
  * License:           GPL-2.0+
@@ -65,14 +65,14 @@ Notes
 
 
 /**
- * OpenID_Connect_Generic class.
+ * BlokSec_OIDC class.
  *
  * Defines plugin initialization functionality.
  *
- * @package Bloksec_OIDC
+ * @package BlokSec_OIDC
  * @category  General
  */
-class OpenID_Connect_Generic {
+class BlokSec_OIDC {
 
 	/**
 	 * Plugin version.
@@ -84,40 +84,40 @@ class OpenID_Connect_Generic {
 	/**
 	 * Plugin settings.
 	 *
-	 * @var OpenID_Connect_Generic_Option_Settings
+	 * @var BlokSec_OIDC_Option_Settings
 	 */
 	private $settings;
 
 	/**
 	 * Plugin logs.
 	 *
-	 * @var OpenID_Connect_Generic_Option_Logger
+	 * @var BlokSec_OIDC_Option_Logger
 	 */
 	private $logger;
 
 	/**
 	 * Openid Connect Generic client
 	 *
-	 * @var OpenID_Connect_Generic_Client
+	 * @var BlokSec_OIDC_Client
 	 */
 	private $client;
 
 	/**
 	 * Client wrapper.
 	 *
-	 * @var OpenID_Connect_Generic_Client_Wrapper
+	 * @var BlokSec_OIDC_Client_Wrapper
 	 */
 	private $client_wrapper;
 
 	/**
 	 * Setup the plugin
 	 *
-	 * @param OpenID_Connect_Generic_Option_Settings $settings The settings object.
-	 * @param OpenID_Connect_Generic_Option_Logger   $logger   The loggin object.
+	 * @param BlokSec_OIDC_Option_Settings $settings The settings object.
+	 * @param BlokSec_OIDC_Option_Logger   $logger   The loggin object.
 	 *
 	 * @return void
 	 */
-	function __construct( OpenID_Connect_Generic_Option_Settings $settings, OpenID_Connect_Generic_Option_Logger $logger ) {
+	function __construct( BlokSec_OIDC_Option_Settings $settings, BlokSec_OIDC_Option_Logger $logger ) {
 		$this->settings = $settings;
 		$this->logger = $logger;
 	}
@@ -140,7 +140,7 @@ class OpenID_Connect_Generic {
 			$state_time_limit = intval( $this->settings->state_time_limit );
 		}
 
-		$this->client = new OpenID_Connect_Generic_Client(
+		$this->client = new BlokSec_OIDC_Client(
 			$this->settings->client_id,
 			$this->settings->client_secret,
 			$this->settings->scope,
@@ -152,12 +152,12 @@ class OpenID_Connect_Generic {
 			$this->logger
 		);
 
-		$this->client_wrapper = OpenID_Connect_Generic_Client_Wrapper::register( $this->client, $this->settings, $this->logger );
+		$this->client_wrapper = BlokSec_OIDC_Client_Wrapper::register( $this->client, $this->settings, $this->logger );
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			return;
 		}
 
-		OpenID_Connect_Generic_Login_Form::register( $this->settings, $this->client_wrapper );
+		BlokSec_OIDC_Login_Form::register( $this->settings, $this->client_wrapper );
 
 		// Add a shortcode to get the auth URL.
 		add_shortcode( 'openid_connect_generic_auth_url', array( $this->client_wrapper, 'get_authentication_url' ) );
@@ -168,7 +168,7 @@ class OpenID_Connect_Generic {
 		$this->upgrade();
 
 		if ( is_admin() ) {
-			OpenID_Connect_Generic_Settings_Page::register( $this->settings, $this->logger );
+			BlokSec_OIDC_Settings_Page::register( $this->settings, $this->logger );
 		}
 	}
 
@@ -294,7 +294,7 @@ class OpenID_Connect_Generic {
 	 * @return void
 	 */
 	static public function autoload( $class ) {
-		$prefix = 'OpenID_Connect_Generic_';
+		$prefix = 'BlokSec_OIDC_';
 
 		if ( stripos( $class, $prefix ) !== 0 ) {
 			return;
@@ -327,9 +327,9 @@ class OpenID_Connect_Generic {
 		 *
 		 * @link https://www.php.net/manual/en/function.spl-autoload-register.php#71155
 		 */
-		spl_autoload_register( array( 'OpenID_Connect_Generic', 'autoload' ) );
+		spl_autoload_register( array( 'BlokSec_OIDC', 'autoload' ) );
 
-		$settings = new OpenID_Connect_Generic_Option_Settings(
+		$settings = new BlokSec_OIDC_Option_Settings(
 			'openid_connect_generic_settings',
 			// Default settings values.
 			array(
@@ -349,7 +349,7 @@ class OpenID_Connect_Generic {
 				'thankyou_popup_title'       => defined( 'OIDC_THANKYOU_POPUP_TITLE' ) ? OIDC_THANKYOU_POPUP_TITLE : 'Thank you!',
 				'thankyou_popup_content'       => defined( 'OIDC_THANKYOU_POPUP_CONTENT' ) ? OIDC_THANKYOU_POPUP_CONTENT : 'An email has been sent with instructions on how to complete the setup of passwordless login.',
 
-				'login_button_text'       => defined( 'OIDC_LOGIN_BUTTON_TEXT' ) ? OIDC_LOGIN_BUTTON_TEXT : 'Login with Bloksec',
+				'login_button_text'       => defined( 'OIDC_LOGIN_BUTTON_TEXT' ) ? OIDC_LOGIN_BUTTON_TEXT : 'Login with BlokSec',
 
 				// Non-standard settings.
 				'no_sslverify'    => 0,
@@ -368,12 +368,12 @@ class OpenID_Connect_Generic {
 				'create_if_does_not_exist' => 1,
 				'redirect_user_back' => 0,
 				'redirect_on_logout' => 1,
-				'enable_logging'  => 1,
+				'enable_logging'  => 0,
 				'log_limit'       => 1000,
 			)
 		);
 
-		$logger = new OpenID_Connect_Generic_Option_Logger( 'openid-connect-generic-logs', 'error', $settings->enable_logging, $settings->log_limit );
+		$logger = new BlokSec_OIDC_Option_Logger( 'openid-connect-generic-logs', 'error', $settings->enable_logging, $settings->log_limit );
 
 		$plugin = new self( $settings, $logger );
 
@@ -464,12 +464,12 @@ class OpenID_Connect_Generic {
 		</style>
 		<div id="registerPopup" class="register-popup">
 				<div id="register-content" class="popup-content">
-					<h3 class="bloksec-header">Bloksec Registration Sent</h3>
-					<p>Thank you for registering. Check your email for instructions on how to complete the Bloksec registration</p>
+					<h3 class="bloksec-header">BlokSec Registration Sent</h3>
+					<p>Thank you for registering. Check your email for instructions on how to complete the BlokSec registration</p>
 					<button type="button" class="button button-large" onclick="closeRegisterPopup()">Close</button>
 				</div>
 			</div>
-		<h2>Bloksec</h2>
+		<h2>BlokSec</h2>
 			<table class="form-table">
 				<tr>
 					<th><label for="user_birthday">Register</label></th>
@@ -632,7 +632,7 @@ class OpenID_Connect_Generic {
 
 }
 
-OpenID_Connect_Generic::bootstrap();
+BlokSec_OIDC::bootstrap();
 
-register_activation_hook( __FILE__, array( 'OpenID_Connect_Generic', 'activation' ) );
-register_deactivation_hook( __FILE__, array( 'OpenID_Connect_Generic', 'deactivation' ) );
+register_activation_hook( __FILE__, array( 'BlokSec_OIDC', 'activation' ) );
+register_deactivation_hook( __FILE__, array( 'BlokSec_OIDC', 'deactivation' ) );

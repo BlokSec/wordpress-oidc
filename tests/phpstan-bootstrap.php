@@ -2,12 +2,12 @@
 /**
  * Phpstan bootstrap file.
  *
- * @package   OpenID_Connect_Generic
+ * @package   BlokSec_OIDC
+ * @author    Kevin Wicken <kwicken@bloksec.com>
  * @author    Jonathan Daggerhart <jonathan@daggerhart.com>
  * @author    Tim Nolte <tim.nolte@ndigitals.com>
- * @copyright 2015-2020 daggerhart
+ * @copyright 2015-2020
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt GPL-2.0+
- * @link      https://github.com/daggerhart
  */
 
 // Define WordPress language directory.

@@ -2,10 +2,11 @@
 /**
  * WordPress options handling class.
  *
- * @package   OpenID_Connect_Generic
+ * @package   BlokSec_OIDC
  * @category  Settings
  * @author    Jonathan Daggerhart <jonathan@daggerhart.com>
- * @copyright 2015-2020 Bloksec
+ * @author    Kevin Wicken <kwicken@bloksec.com>
+ * @copyright 2015-2020 BlokSec
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt GPL-2.0+
  */
 
@@ -14,7 +15,7 @@
  *
  * WordPress options handling.
  *
- * @package Bloksec_OIDC
+ * @package BlokSec_OIDC
  * @category  Settings
  *
  * Legacy Settings:
@@ -57,7 +58,7 @@
  * @property bool $enable_logging           The flag to enable/disable logging.
  * @property int  $log_limit                The maximum number of log entries to keep.
  */
-class OpenID_Connect_Generic_Option_Settings {
+class BlokSec_OIDC_Option_Settings {
 
 	/**
 	 * WordPress option name/key.

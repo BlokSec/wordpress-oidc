@@ -2,27 +2,28 @@
 /**
  * Plugin OIDC/oAuth client class.
  *
- * @package   Bloksec_OIDC
+ * @package   BlokSec_OIDC
  * @category  Authentication
  * @author    Jonathan Daggerhart <jonathan@daggerhart.com>
- * @copyright 2015-2020 Bloksec
+ * @author    Kevin Wicken <kwicken@bloksec.com>
+ * @copyright 2015-2020 BlokSec
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt GPL-2.0+
  */
 
 /**
- * OpenID_Connect_Generic_Client class.
+ * BlokSec_OIDC_Client class.
  *
  * Plugin OIDC/oAuth client class.
  *
- * @package  Bloksec_OIDC
+ * @package  BlokSec_OIDC
  * @category Authentication
  */
-class OpenID_Connect_Generic_Client {
+class BlokSec_OIDC_Client {
 
 	/**
 	 * The OIDC/oAuth client ID.
 	 *
-	 * @see OpenID_Connect_Generic_Option_Settings::client_id
+	 * @see BlokSec_OIDC_Option_Settings::client_id
 	 *
 	 * @var string
 	 */
@@ -31,7 +32,7 @@ class OpenID_Connect_Generic_Client {
 	/**
 	 * The OIDC/oAuth client secret.
 	 *
-	 * @see OpenID_Connect_Generic_Option_Settings::client_secret
+	 * @see BlokSec_OIDC_Option_Settings::client_secret
 	 *
 	 * @var string
 	 */
@@ -40,7 +41,7 @@ class OpenID_Connect_Generic_Client {
 	/**
 	 * The OIDC/oAuth scopes.
 	 *
-	 * @see OpenID_Connect_Generic_Option_Settings::scope
+	 * @see BlokSec_OIDC_Option_Settings::scope
 	 *
 	 * @var string
 	 */
@@ -49,7 +50,7 @@ class OpenID_Connect_Generic_Client {
 	/**
 	 * The OIDC/oAuth authorization endpoint URL.
 	 *
-	 * @see OpenID_Connect_Generic_Option_Settings::endpoint_login
+	 * @see BlokSec_OIDC_Option_Settings::endpoint_login
 	 *
 	 * @var string
 	 */
@@ -58,7 +59,7 @@ class OpenID_Connect_Generic_Client {
 	/**
 	 * The OIDC/oAuth User Information endpoint URL.
 	 *
-	 * @see OpenID_Connect_Generic_Option_Settings::endpoint_userinfo
+	 * @see BlokSec_OIDC_Option_Settings::endpoint_userinfo
 	 *
 	 * @var string
 	 */
@@ -67,7 +68,7 @@ class OpenID_Connect_Generic_Client {
 	/**
 	 * The OIDC/oAuth token validation endpoint URL.
 	 *
-	 * @see OpenID_Connect_Generic_Option_Settings::endpoint_token
+	 * @see BlokSec_OIDC_Option_Settings::endpoint_token
 	 *
 	 * @var string
 	 */
@@ -76,7 +77,7 @@ class OpenID_Connect_Generic_Client {
 	/**
 	 * The login flow "ajax" endpoint URI.
 	 *
-	 * @see OpenID_Connect_Generic_Option_Settings::redirect_uri
+	 * @see BlokSec_OIDC_Option_Settings::redirect_uri
 	 *
 	 * @var string
 	 */
@@ -85,7 +86,7 @@ class OpenID_Connect_Generic_Client {
 	/**
 	 * The state time limit. States are only valid for 3 minutes.
 	 *
-	 * @see OpenID_Connect_Generic_Option_Settings::state_time_limit
+	 * @see BlokSec_OIDC_Option_Settings::state_time_limit
 	 *
 	 * @var int
 	 */
@@ -94,22 +95,22 @@ class OpenID_Connect_Generic_Client {
 	/**
 	 * The logger object instance.
 	 *
-	 * @var OpenID_Connect_Generic_Option_Logger
+	 * @var BlokSec_OIDC_Option_Logger
 	 */
 	private $logger;
 
 	/**
 	 * Client constructor.
 	 *
-	 * @param string                               $client_id         @see OpenID_Connect_Generic_Option_Settings::client_id for description.
-	 * @param string                               $client_secret     @see OpenID_Connect_Generic_Option_Settings::client_secret for description.
-	 * @param string                               $scope             @see OpenID_Connect_Generic_Option_Settings::scope for description.
-	 * @param string                               $endpoint_login    @see OpenID_Connect_Generic_Option_Settings::endpoint_login for description.
-	 * @param string                               $endpoint_userinfo @see OpenID_Connect_Generic_Option_Settings::endpoint_userinfo for description.
-	 * @param string                               $endpoint_token    @see OpenID_Connect_Generic_Option_Settings::endpoint_token for description.
-	 * @param string                               $redirect_uri      @see OpenID_Connect_Generic_Option_Settings::redirect_uri for description.
-	 * @param int                                  $state_time_limit  @see OpenID_Connect_Generic_Option_Settings::state_time_limit for description.
-	 * @param OpenID_Connect_Generic_Option_Logger $logger            The plugin logging object instance.
+	 * @param string                               $client_id         @see BlokSec_OIDC_Option_Settings::client_id for description.
+	 * @param string                               $client_secret     @see BlokSec_OIDC_Option_Settings::client_secret for description.
+	 * @param string                               $scope             @see BlokSec_OIDC_Option_Settings::scope for description.
+	 * @param string                               $endpoint_login    @see BlokSec_OIDC_Option_Settings::endpoint_login for description.
+	 * @param string                               $endpoint_userinfo @see BlokSec_OIDC_Option_Settings::endpoint_userinfo for description.
+	 * @param string                               $endpoint_token    @see BlokSec_OIDC_Option_Settings::endpoint_token for description.
+	 * @param string                               $redirect_uri      @see BlokSec_OIDC_Option_Settings::redirect_uri for description.
+	 * @param int                                  $state_time_limit  @see BlokSec_OIDC_Option_Settings::state_time_limit for description.
+	 * @param BlokSec_OIDC_Option_Logger $logger            The plugin logging object instance.
 	 */
 	function __construct( $client_id, $client_secret, $scope, $endpoint_login, $endpoint_userinfo, $endpoint_token, $redirect_uri, $state_time_limit, $logger ) {
 		$this->client_id = $client_id;
