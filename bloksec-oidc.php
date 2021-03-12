@@ -79,7 +79,7 @@ class BlokSec_OIDC {
 	 *
 	 * @var
 	 */
-	const VERSION = '3.9.0';
+	const VERSION = '3.0.0';
 
 	/**
 	 * Plugin settings.
