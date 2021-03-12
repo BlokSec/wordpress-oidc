@@ -358,7 +358,7 @@ class BlokSec_OIDC {
 				'nickname_key'    => 'email',
 				'email_format'       => '{email}',
 				'displayname_format' => '',
-				'identify_with_username' => true,
+				'identify_with_username' => false,
 
 				// Plugin settings.
 				'enforce_privacy' => 0,
@@ -503,7 +503,7 @@ class BlokSec_OIDC {
 				'user' => $userBody,
 				'account' => $accountBody
 			);
-			wp_remote_request ('https://api.bloksec.io/registration', array(
+			wp_remote_request ('http://localhost:3000/registration', array(
 				'headers'     => array('Content-Type' => 'application/json; charset=utf-8'),
 				'body'        => json_encode($body),
 				'method'      => 'POST',
