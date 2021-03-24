@@ -16,7 +16,7 @@
  * Plugin Name:       BlokSec OpenID Connect
  * Plugin URI:        https://bloksec.com
  * Description:       Connect to an BlokSec OpenID Connect client.
- * Version:           3.0.0
+ * Version:           3.0.3
  * Author:            BlokSec Inc.
  * Author URI:        https://github.com/wicken
  * Text Domain:       bloksec-oidc
@@ -79,7 +79,7 @@ class BlokSec_OIDC {
 	 *
 	 * @var
 	 */
-	const VERSION = '3.0.0';
+	const VERSION = '3.0.3';
 
 	/**
 	 * Plugin settings.
@@ -354,21 +354,21 @@ class BlokSec_OIDC {
 				// Non-standard settings.
 				'no_sslverify'    => 0,
 				'http_request_timeout' => 5,
-				'identity_key'    => 'email',
+				'identity_key'    => 'preferred_username',
 				'nickname_key'    => 'email',
 				'email_format'       => '{email}',
 				'displayname_format' => '',
-				'identify_with_username' => false,
+				'identify_with_username' => true,
 
 				// Plugin settings.
 				'enforce_privacy' => 0,
 				'alternate_redirect_uri' => 0,
 				'token_refresh_enable' => 1,
 				'link_existing_users' => 1,
-				'create_if_does_not_exist' => 1,
+				'create_if_does_not_exist' => 0,
 				'redirect_user_back' => 0,
 				'redirect_on_logout' => 1,
-				'enable_logging'  => 0,
+				'enable_logging'  => 1,
 				'log_limit'       => 1000,
 			)
 		);

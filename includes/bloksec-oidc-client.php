@@ -528,7 +528,7 @@ class BlokSec_OIDC_Client {
 	 * @return mixed
 	 */
 	function get_subject_identity( $id_token_claim ) {
-		return $id_token_claim['email'];
+		return $id_token_claim['preferred_username'];
 	}
 
 }

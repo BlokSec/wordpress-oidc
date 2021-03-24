@@ -426,7 +426,8 @@ class BlokSec_OIDC_Client_Wrapper {
 					$this->error_redirect( $user );
 				}
 			} else {
-				$this->error_redirect( new WP_Error( 'identity-not-map-existing-user', __( 'User identity is not linked to an existing WordPress user.', 'bloksec-oidc' ), $user_claim ) );
+				$this->logger->log( $id_token_claim, 'idtoken claim' );
+				$this->error_redirect( new WP_Error( 'identity-not-map-existing-user', __( 'User identity is not linked to an existing WordPress user.', 'bloksec-oidc' ), $subject_identity ) );
 			}
 		} else {
 			// Allow plugins / themes to take action using current claims on existing user (e.g. update role).
@@ -546,25 +547,7 @@ class BlokSec_OIDC_Client_Wrapper {
 	 * @return false|WP_User
 	 */
 	function get_user_by_identity( $subject_identity ) {
-		// Look for user by their openid-connect-generic-subject-identity value.
-		$user_query = new WP_User_Query(
-			array(
-				'meta_query' => array(
-					array(
-						'key'   => 'openid-connect-generic-subject-identity',
-						'value' => $subject_identity,
-					),
-				),
-			)
-		);
-
-		// If we found an existing users, grab the first one returned.
-		if ( $user_query->get_total() > 0 ) {
-			$users = $user_query->get_results();
-			return $users[0];
-		}
-
-		return false;
+		return get_user_by('login', $subject_identity);;
 	}
 
 	/**
