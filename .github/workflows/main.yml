@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Create release
 
 # Controls when the workflow will run
 on:
@@ -8,10 +8,7 @@ on:
   push:
     tags:
       - "v*"
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
+      
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -27,6 +24,10 @@ jobs:
       # Runs a single command using the runners shell
       - name: Install
         run: npm install
+        
+      # Runs a single command using the runners shell
+      - name: Install
+        run: npm run build
         
       - name: release
         uses: actions/create-release@v1
