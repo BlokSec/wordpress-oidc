@@ -4,23 +4,23 @@ name: Create release
 on:
   create:
     tags:
-      - '*'
+      - v*
 
-      
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build_release:
     name: build_release
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 
+      - name: Checkout
         uses: actions/checkout@v2
 
       # Runs a single command using the runners shell
       - name: Install
         run: npm install
-        
+
       # Runs a single command using the runners shell
       - name: Install
         run: npm run build
-      
+
