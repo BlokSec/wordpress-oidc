@@ -320,6 +320,10 @@ class BlokSec_OIDC_Settings_Page {
 				<strong><?php _e( 'Authentication URL Shortcode', 'bloksec-oidc' ); ?></strong>
 				<code>[openid_connect_generic_auth_url]</code>
 			</p>
+			<p class="description">
+				<strong><?php _e( 'BlokSec registration button Shortcode', 'bloksec-oidc' ); ?></strong>
+				<code>[bloksec_registration_button]</code>
+			</p>
 
 			<?php if ( $this->settings->enable_logging ) { ?>
 				<h2><?php _e( 'Logs', 'bloksec-oidc' ); ?></h2>

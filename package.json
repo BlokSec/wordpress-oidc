@@ -47,7 +47,7 @@
 		"welcome-build-command": "npm start"
 	},
 	"scripts": {
-		"clean": "npm run grunt clean",
+		"clean": "npm run grunt clean && rimraf dist.zip",
 		"setup": "composer install && npm install && cd wordpress && npm install && npm run build && cd .. && composer install --optimize-autoloader",
 		"start": "wp-env start",
 		"stop": "wp-env stop",

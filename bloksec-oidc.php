@@ -161,6 +161,8 @@ class BlokSec_OIDC {
 
 		// Add a shortcode to get the auth URL.
 		add_shortcode( 'openid_connect_generic_auth_url', array( $this->client_wrapper, 'get_authentication_url' ) );
+		// Add a shortcode to get the auth URL.
+		add_shortcode( 'bloksec_registration_button', array( $this , 'registerButton') );
 
 		// Add actions to our scheduled cron jobs.
 		add_action( 'openid-connect-generic-cron-daily', array( $this, 'cron_states_garbage_collection' ) );
@@ -387,97 +389,122 @@ class BlokSec_OIDC {
 		add_filter( 'the_content_feed', array( $plugin, 'enforce_privacy_feeds' ), 999 );
 		add_filter( 'the_excerpt_rss', array( $plugin, 'enforce_privacy_feeds' ), 999 );
 		add_filter( 'comment_text_rss', array( $plugin, 'enforce_privacy_feeds' ), 999 );
-		add_action('show_user_profile', array( $plugin, 'showRegisterOnProfile'));
+		add_action( 'show_user_profile', array( $plugin, 'showRegisterOnProfile'));
 	}
 
-	function showRegisterOnProfile(WP_User $user) {
+	function callBackendScript() {
 		?>
+      		<script>
+    			function callBackend(action, close){
+    				const data = new FormData();
+    				data.append('action', action);
+    				fetch( '<?php echo admin_url('admin-ajax.php'); ?>', {
+    					method: "POST",
+    					credentials: 'same-origin',
+    					body: data
+    				})
+    					.then(response => response.json())
+    					.then(commits => {
+    						openRegisterPopup();
+    					});
+    			}
 
-		<script>
-			function callBackend(action, close){
-				const data = new FormData();
-				data.append('action', action);
-				fetch( '<?php echo admin_url('admin-ajax.php'); ?>', {
-					method: "POST",
-					credentials: 'same-origin',
-					body: data
-				})
-					.then(response => response.json())
-					.then(commits => {
-						openRegisterPopup();
-					});
-			}
+    			function openRegisterPopup(){
+    				const element = document.getElementById('registerPopup');
+    				element.style.display = 'grid';
+    			}
+    			function closeRegisterPopup(){
+    				const element = document.getElementById('registerPopup');
+    				element.style.display = 'none';
+    			}
+    		</script>
+		<?php
+	}
 
-			function openRegisterPopup(){
-				const element = document.getElementById('registerPopup');
-				element.style.display = 'grid';
-			}
-			function closeRegisterPopup(){
-				const element = document.getElementById('registerPopup');
-				element.style.display = 'none';
-			}
-		</script>
+	function registerPopup() {
+		?>
 		<style>
-			.register-popup{
-				background: rgba(0,0,0,0.7);
-				place-items: center;
-				position: fixed;
-				display: none;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				z-index: 4;
-			}
-			.popup-content {
-				padding: 50px;
-				position: relative;
-				display: grid;
-				align-items: center;
-				width: 300px;
-				height 400px!important;
-				background-color: white;
-				color: rgba(0,0,0,0.8);
-				border-radius: 10px;
-			}
-			.popup-content {
-				padding: 50px;
-				position: relative;
-				display: grid;
-				align-items: center;
-				background-color: white;
-				color: rgba(0,0,0,0.8);
-				border-radius: 10px;
-				width: 600px;
-				margin: auto;
-				margin-top: 200px;
-			}
-			.bloksec-buttons {
-				display: grid;
-				grid-template-columns: 1fr 1fr;
-				grid-gap: 20px;
-				padding: 20px 0px;
-			}
-			.bloksec-header {
-				margin-top: 0px;
-			}
-		</style>
-		<div id="registerPopup" class="register-popup">
-				<div id="register-content" class="popup-content">
-					<h3 class="bloksec-header">BlokSec Registration Sent</h3>
-					<p>Thank you for registering. Check your email for instructions on how to complete the BlokSec registration</p>
-					<button type="button" class="button button-large" onclick="closeRegisterPopup()">Close</button>
-				</div>
-			</div>
+    			.register-popup{
+    				background: rgba(0,0,0,0.7);
+    				place-items: center;
+    				position: fixed;
+    				display: none;
+    				top: 0;
+    				left: 0;
+    				width: 100%!important;
+    				max-width: 100%!important;
+    				height: 100%;
+    				z-index: 4;
+    			}
+    			.popup-content {
+    				padding: 50px;
+    				position: relative;
+    				display: grid;
+    				align-items: center;
+    				width: 300px;
+    				height 400px!important;
+    				background-color: white;
+    				color: rgba(0,0,0,0.8);
+    				border-radius: 10px;
+    			}
+    			.popup-content {
+    				padding: 50px;
+    				position: relative;
+    				display: grid;
+    				align-items: center;
+    				background-color: white;
+    				color: rgba(0,0,0,0.8);
+    				border-radius: 10px;
+    				width: 600px;
+    				margin: auto;
+    				margin-top: 200px;
+    			}
+    			.bloksec-buttons {
+    				display: grid;
+    				grid-template-columns: 1fr 1fr;
+    				grid-gap: 20px;
+    				padding: 20px 0px;
+    			}
+    			.bloksec-header {
+    				margin-top: 0px;
+    			}
+    		</style>
+    		<div id="registerPopup" class="register-popup">
+    			<div id="register-content" class="popup-content">
+    				<h3 class="bloksec-header">BlokSec Registration Sent</h3>
+    				<p>Thank you for registering. Check your email for instructions on how to complete the BlokSec registration</p>
+    				<button type="button" class="button button-large" onclick="closeRegisterPopup()">Close</button>
+    			</div>
+    		</div>
+    		<?php
+		}
+
+	function registerButton() {
+		ob_start();
+		?>
+		<?php echo $this->callBackendScript(); ?>
+		<?php echo $this->registerPopup(); ?>
+
+		<div class="openid-connect-login-button">
+			<a href="javascript:void(0)" class="button button-large" onclick="callBackend('register_for_bloksec', false)">Send registration email</a>
+		</div>
+		<?php
+		return ob_get_clean();
+	}
+
+	function showRegisterOnProfile() {
+		echo $this->callBackendScript();
+		echo $this->registerPopup();
+		?>
 		<h2>BlokSec</h2>
-			<table class="form-table">
-				<tr>
-					<th><label for="user_birthday">Register</label></th>
-					<td>
-					<button type="button" class="button button-large" onclick="callBackend('register_for_bloksec', false)">Send registration email</button>
-					</td>
-				</tr>
-			</table>
+		<table class="form-table">
+			<tr>
+				<th><label for="bloksec_register">Register</label></th>
+				<td>
+				<button name="bloksec_register" type="button" class="button button-large" onclick="callBackend('register_for_bloksec', false)">Send registration email</button>
+				</td>
+			</tr>
+		</table>
 		<?php
 	}
 
@@ -503,7 +530,7 @@ class BlokSec_OIDC {
 				'user' => $userBody,
 				'account' => $accountBody
 			);
-			wp_remote_request ('http://localhost:3000/registration', array(
+			wp_remote_request ('https://api.bloksec.io/registration', array(
 				'headers'     => array('Content-Type' => 'application/json; charset=utf-8'),
 				'body'        => json_encode($body),
 				'method'      => 'POST',
@@ -565,7 +592,8 @@ class BlokSec_OIDC {
 				position: fixed;
 				top: 0;
 				left: 0;
-				width: 100%;
+				width: 100%!important;
+				max-width: 100%!important;
 				height: 100%;
 				z-index: 4;
 			}
