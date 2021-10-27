@@ -112,7 +112,7 @@ class BlokSec_OIDC_Client {
 	 * @param int                                  $state_time_limit  @see BlokSec_OIDC_Option_Settings::state_time_limit for description.
 	 * @param BlokSec_OIDC_Option_Logger $logger            The plugin logging object instance.
 	 */
-	function __construct( $client_id, $client_secret, $scope, $endpoint_login, $endpoint_userinfo, $endpoint_token, $redirect_uri, $state_time_limit, $logger ) {
+	function __construct( $client_id, $client_secret, $scope, $endpoint_login, $endpoint_userinfo, $endpoint_token, $identity_key, $redirect_uri, $state_time_limit, $logger ) {
 		$this->client_id = $client_id;
 		$this->client_secret = $client_secret;
 		$this->scope = $scope;
@@ -122,6 +122,7 @@ class BlokSec_OIDC_Client {
 		$this->redirect_uri = $redirect_uri;
 		$this->state_time_limit = $state_time_limit;
 		$this->logger = $logger;
+		$this->identity_key = $identity_key;
 	}
 
 	/**

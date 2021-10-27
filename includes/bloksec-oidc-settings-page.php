@@ -250,6 +250,16 @@ class BlokSec_OIDC_Settings_Page {
 				'type'        => 'text',
 				'section'     => 'client_settings',
 			),
+			'identity_key'             => array(
+				'title'       => __( 'Identity claim', 'bloksec-oidc' ),
+				'description' => __( 'The claim to use for identity.', 'bloksec-oidc' ),
+				'type'        => 'select',
+                				'options'     => array(
+                					'email' => __( 'Email', 'bloksec-oidc' ),
+                					'preferred_username'   => __( 'Username', 'bloksec-oidc' ),
+                				),
+				'section'     => 'client_settings',
+			),
 		);
 
 		return apply_filters( 'openid-connect-generic-settings-fields', $fields );

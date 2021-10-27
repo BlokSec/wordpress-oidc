@@ -147,6 +147,7 @@ class BlokSec_OIDC {
 			$this->settings->endpoint_login,
 			$this->settings->endpoint_userinfo,
 			$this->settings->endpoint_token,
+			$this->settings->identity_key,
 			$redirect_uri,
 			$state_time_limit,
 			$this->logger
@@ -352,11 +353,10 @@ class BlokSec_OIDC {
 				'thankyou_popup_content'       => defined( 'OIDC_THANKYOU_POPUP_CONTENT' ) ? OIDC_THANKYOU_POPUP_CONTENT : 'An email has been sent with instructions on how to complete the setup of passwordless login.',
 
 				'login_button_text'       => defined( 'OIDC_LOGIN_BUTTON_TEXT' ) ? OIDC_LOGIN_BUTTON_TEXT : 'Login with BlokSec',
-
 				// Non-standard settings.
 				'no_sslverify'    => 0,
 				'http_request_timeout' => 5,
-				'identity_key'    => 'preferred_username',
+				'identity_key'    => 'email',
 				'nickname_key'    => 'email',
 				'email_format'       => '{email}',
 				'displayname_format' => '',
@@ -512,7 +512,10 @@ class BlokSec_OIDC {
 	function register_for_bloksec(){
 		$user = wp_get_current_user();
 		if($user){
-			$username = $user->user_login;
+			$username = $user->user_email;
+			if($this->settings->identity_key == 'preferred_username') {
+				$username = $user->user_login;
+			}
 			$email = $user->user_email;
 			$firstName = $user->first_name;
 			$lastName = $user->last_name;

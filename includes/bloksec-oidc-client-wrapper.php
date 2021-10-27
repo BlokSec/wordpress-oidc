@@ -547,6 +547,9 @@ class BlokSec_OIDC_Client_Wrapper {
 	 * @return false|WP_User
 	 */
 	function get_user_by_identity( $subject_identity ) {
+		if($this->settings->identity_key == 'email') {
+			return get_user_by('email', $subject_identity);
+		}
 		return get_user_by('login', $subject_identity);;
 	}
 
