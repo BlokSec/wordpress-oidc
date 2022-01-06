@@ -16,7 +16,7 @@
  * Plugin Name:       BlokSec OpenID Connect
  * Plugin URI:        https://bloksec.com
  * Description:       Connect to an BlokSec OpenID Connect client.
- * Version:           3.3.0
+ * Version:           3.3.1
  * Author:            BlokSec Inc.
  * Author URI:        https://github.com/wicken
  * Text Domain:       bloksec-oidc
@@ -79,7 +79,7 @@ class BlokSec_OIDC {
 	 *
 	 * @var
 	 */
-	const VERSION = '3.3.0';
+	const VERSION = '3.3.1';
 
 	/**
 	 * Plugin settings.
