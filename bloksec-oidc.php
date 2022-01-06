@@ -331,7 +331,7 @@ class BlokSec_OIDC {
 		 * @link https://www.php.net/manual/en/function.spl-autoload-register.php#71155
 		 */
 		spl_autoload_register( array( 'BlokSec_OIDC', 'autoload' ) );
-
+		$baseUrl = 'https://api.bloksec.io/oidc';
 		$settings = new BlokSec_OIDC_Option_Settings(
 			'openid_connect_generic_settings',
 			// Default settings values.
@@ -341,10 +341,10 @@ class BlokSec_OIDC {
 				'client_id'            => defined( 'OIDC_CLIENT_ID' ) ? OIDC_CLIENT_ID : '',
 				'client_secret'        => defined( 'OIDC_CLIENT_SECRET' ) ? OIDC_CLIENT_SECRET : '',
 				'scope'                => '',
-				'endpoint_login'       => defined( 'OIDC_ENDPOINT_LOGIN_URL' ) ? OIDC_ENDPOINT_LOGIN_URL : 'https://api.bloksec.io/oidc/auth',
-				'endpoint_userinfo'    => defined( 'OIDC_ENDPOINT_USERINFO_URL' ) ? OIDC_ENDPOINT_USERINFO_URL : 'https://api.bloksec.io/oidc/me',
-				'endpoint_token'       => defined( 'OIDC_ENDPOINT_TOKEN_URL' ) ? OIDC_ENDPOINT_TOKEN_URL : 'https://api.bloksec.io/oidc/token',
-				'endpoint_end_session' => defined( 'OIDC_ENDPOINT_LOGOUT_URL' ) ? OIDC_ENDPOINT_LOGOUT_URL : 'https://api.bloksec.io/oidc/session/end',
+				'endpoint_login'       => defined( 'OIDC_ENDPOINT_LOGIN_URL' ) ? OIDC_ENDPOINT_LOGIN_URL : $baseUrl.'/auth',
+				'endpoint_userinfo'    => defined( 'OIDC_ENDPOINT_USERINFO_URL' ) ? OIDC_ENDPOINT_USERINFO_URL : $baseUrl.'/me',
+				'endpoint_token'       => defined( 'OIDC_ENDPOINT_TOKEN_URL' ) ? OIDC_ENDPOINT_TOKEN_URL : $baseUrl.'/token',
+				'endpoint_end_session' => defined( 'OIDC_ENDPOINT_LOGOUT_URL' ) ? OIDC_ENDPOINT_LOGOUT_URL : $baseUrl.'/session/end',
 
 				'register_popup_title'       => defined( 'OIDC_REGISTER_POPUP_TITLE' ) ? OIDC_REGISTER_POPUP_TITLE : 'Register for passwordless login',
 				'register_popup_content'       => defined( 'OIDC_REGISTER_POPUP_CONTENT' ) ? OIDC_REGISTER_POPUP_CONTENT : 'Would you like to try passwordless login?',

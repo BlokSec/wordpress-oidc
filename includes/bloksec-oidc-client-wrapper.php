@@ -80,11 +80,11 @@ class BlokSec_OIDC_Client_Wrapper {
 	/**
 	 * Hook the client into WordPress.
 	 *
-	 * @param \BlokSec_OIDC_Client          $client   The plugin client instance.
-	 * @param \BlokSec_OIDC_Option_Settings $settings The plugin settings instance.
-	 * @param \BlokSec_OIDC_Option_Logger   $logger   The plugin logger instance.
+	 * @param BlokSec_OIDC_Client          $client   The plugin client instance.
+	 * @param BlokSec_OIDC_Option_Settings $settings The plugin settings instance.
+	 * @param BlokSec_OIDC_Option_Logger   $logger   The plugin logger instance.
 	 *
-	 * @return \BlokSec_OIDC_Client_Wrapper
+	 * @return BlokSec_OIDC_Client_Wrapper
 	 */
 	static public function register( BlokSec_OIDC_Client $client, BlokSec_OIDC_Option_Settings $settings, BlokSec_OIDC_Option_Logger $logger ) {
 		$client_wrapper  = new self( $client, $settings, $logger );
@@ -284,6 +284,7 @@ class BlokSec_OIDC_Client_Wrapper {
 		}
 
 		$token_response = $user->get( 'openid-connect-generic-last-token-response' );
+		delete_user_meta( $user->ID, 'openid-connect-generic-last-token-response' );
 		if ( ! $token_response ) {
 			// Happens if non-openid login was used.
 			return $redirect_url;
