@@ -1,6 +1,6 @@
 <?php
 /**
- * BlokSec OpenID Connect Client
+ * BlokSec OIDC Client
  *
  * This plugin provides the ability to authenticate users with Identity
  * Providers using the OpenID Connect OAuth2 API with Authorization Code Flow.
@@ -13,9 +13,9 @@
  * @link      https://github.com/wicken
  *
  * @wordpress-plugin
- * Plugin Name:       BlokSec OpenID Connect
+ * Plugin Name:       BlokSec Application Connector
  * Plugin URI:        https://bloksec.com
- * Description:       Connect to an BlokSec OpenID Connect client.
+ * Description:       Connect to a BlokSec OIDC application.
  * Version:           3.3.1
  * Author:            BlokSec Inc.
  * Author URI:        https://github.com/wicken
@@ -441,23 +441,11 @@ class BlokSec_OIDC {
     				position: relative;
     				display: grid;
     				align-items: center;
-    				width: 300px;
-    				height 400px!important;
     				background-color: white;
     				color: rgba(0,0,0,0.8);
-    				border-radius: 10px;
-    			}
-    			.popup-content {
-    				padding: 50px;
-    				position: relative;
-    				display: grid;
-    				align-items: center;
-    				background-color: white;
-    				color: rgba(0,0,0,0.8);
-    				border-radius: 10px;
     				width: 600px;
     				margin: auto;
-    				margin-top: 200px;
+					margin-top: 200px;
     			}
     			.bloksec-buttons {
     				display: grid;
@@ -610,32 +598,23 @@ class BlokSec_OIDC {
 				position: relative;
 				display: grid;
 				align-items: center;
-				width: 300px;
-				height 400px!important;
 				background-color: white;
 				color: rgba(0,0,0,0.8);
-				border-radius: 10px;
-			}
-			.popup-content {
-				padding: 50px;
-				position: relative;
-				display: grid;
-				align-items: center;
-				background-color: white;
-				color: rgba(0,0,0,0.8);
-				border-radius: 10px;
-				width: 600px;
+				width: 670px;
 				margin: auto;
 				margin-top: 200px;
 			}
 			.bloksec-buttons {
 				display: grid;
-				grid-template-columns: 1fr 1fr;
-				grid-gap: 20px;
+				grid-template-columns: 1fr;
+				grid-gap: 8px;
 				padding: 20px 0px;
 			}
 			.bloksec-header {
 				margin-top: 0px;
+			}
+			.enroll-later {
+				text-align: center;
 			}
 			</style>
 			<div id="registerPopup" class="register-popup">
@@ -643,8 +622,8 @@ class BlokSec_OIDC {
 					<h3 class="bloksec-header"><?php echo $this->settings->register_popup_title; ?></h3>
 					<p><?php echo $this->settings->register_popup_content; ?></p>
 					<div class="bloksec-buttons">
-						<button type="button" class="button button-primary button-large" onclick="callBackend('register_for_bloksec', false)">Register</button>
-						<button type="button" class="button button-large" onclick="callBackend('ignore_bloksec_question', true)">No thank you</button>
+						<button type="button" class="button button-primary button-large" onclick="callBackend('register_for_bloksec', false)">Enroll</button>
+						<a href="javascript:void(0)" class="enroll-later" onclick="callBackend('ignore_bloksec_question', true)">Enroll later</button>
 					</div>
 				</div>
 				<div id="thankyou-content" class="popup-content">
